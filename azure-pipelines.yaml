@@ -21,7 +21,7 @@ steps:
   displayName: 'Run docker build'
 - task: Docker@2
   inputs:
-    containerRegistry: 'Harbor'
+    containerRegistry: 'DockerHub'
     command: 'logout'
 - task: CopyFiles@2
   inputs:
