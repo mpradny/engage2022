@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>demo</groupId>
+    <artifactId>engage2022</artifactId>
+	<version>${revision}</version>       
+	<packaging>domino-nsf</packaging>
+    
+	<properties>
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+		<feature.version>${project.version}_${git.branch.file}_${maven.build.timestamp}</feature.version>
+		<revision>0.0.1-SNAPSHOT</revision>
+		<maven.deploy.skip>false</maven.deploy.skip>	
+		<deploy.folder>dev</deploy.folder>
+	</properties>
+		
+    <build>
+        <plugins>  
+			<plugin>
+                <groupId>org.openntf.maven</groupId>
+                <artifactId>nsfodp-maven-plugin</artifactId>
+                <version>3.9.0-SNAPSHOT</version>
+                <extensions>true</extensions>
+				<configuration>
+					<odpDirectory>odp_stm</odpDirectory>
+					<compilerLevel>1.8</compilerLevel>
+					<appendTimestampToTitle>true</appendTimestampToTitle>
+					<templateName>NTF Engage Demo</templateName>
+					<outputFileName>engage-${feature.version}.ntf</outputFileName>
+					
+				</configuration>
+            </plugin>   		
+			<plugin>
+					<groupId>pl.project13.maven</groupId>
+					<artifactId>git-commit-id-plugin</artifactId>
+					<version>4.0.0</version>
+					<executions>
+						<execution>
+							<id>get-the-git-infos</id>
+							<goals>
+								<goal>revision</goal>
+							</goals>
+							<phase>initialize</phase>
+						</execution>
+					</executions>
+					<configuration>
+						<includeOnlyProperties>
+							<includeOnlyProperty>git.branch</includeOnlyProperty>
+							<includeOnlyProperty>git.branch.file</includeOnlyProperty>
+						</includeOnlyProperties>
+						<replacementProperties>
+						  <!--
+							  example:
+							  apply replacement only to the specific property git.branch and replace '/' with '-'
+							  see also [issue 138](https://github.com/git-commit-id/git-commit-id-maven-plugin/issues/138) -->
+						  <replacementProperty>
+							<property>git.branch</property>
+							<propertyOutputSuffix>file</propertyOutputSuffix>
+							<token>^([^\/]*)\/([^\/]*)$</token>
+							<value>$1-$2</value>
+							<regex>true</regex>							
+							<transformationRules>
+							  <transformationRule>
+								<apply>BEFORE</apply>
+								<action>UPPER_CASE</action>
+							  </transformationRule>
+							  <transformationRule>
+								<apply>AFTER</apply>
+								<action>LOWER_CASE</action>
+							  </transformationRule>
+							</transformationRules>
+						  </replacementProperty>
+						 
+						</replacementProperties>
+					</configuration>
+			</plugin>
+		 </plugins>
+    </build>
+
+
+</project>

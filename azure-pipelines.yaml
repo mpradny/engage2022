@@ -1,0 +1,39 @@
+trigger: none
+
+variables:
+- name: imageTag
+  value: V1201_390s
+  
+pool:
+  name: 'ubuntu-latest'
+
+steps:
+- checkout: self
+  clean: true
+- script: chmod -R go+rwx .
+  displayName: 'Adjust permissions'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    command: 'login'
+
+- script: docker run --rm --volumes-from $(hostname) -w $(Build.Repository.LocalPath) mpradny/domino-appbuild:$(imageTag) mvn -o -DskipTests clean package
+  displayName: 'Run docker build'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Harbor'
+    command: 'logout'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'target/'
+    Contents: '*.ntf'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'templates'
+    publishLocation: 'Container'
+
+- script: docker run --rm --volumes-from $(hostname) -w $(Build.Repository.LocalPath) mpradny/domino-appbuild:$(imageTag) rm -rf ./*
+  displayName: 'Work dir cleanup with permissions from the container'
+  condition: always()
