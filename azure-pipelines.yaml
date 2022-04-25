@@ -5,7 +5,7 @@ variables:
   value: V1201_390s
   
 pool:
-  name: 'ubuntu-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - checkout: self
