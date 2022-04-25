@@ -17,7 +17,7 @@ steps:
     containerRegistry: 'DockerHub'
     command: 'login'
 
-- script: docker run --rm --volumes-from $(hostname) -w $(Build.Repository.LocalPath) mpradny/domino-appbuild:$(imageTag) mvn -o -DskipTests clean package
+- script: docker run --rm --volumes-from $(hostname) -w $(Build.Repository.LocalPath) mpradny/domino-appbuild:$(imageTag) mvn -o package
   displayName: 'Run docker build'
 - task: Docker@2
   inputs:

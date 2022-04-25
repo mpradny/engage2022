@@ -24,7 +24,7 @@
                 <version>3.9.0-SNAPSHOT</version>
                 <extensions>true</extensions>
 				<configuration>
-					<odpDirectory>odp_stm</odpDirectory>
+					<odpDirectory>odp_engage2022</odpDirectory>
 					<compilerLevel>1.8</compilerLevel>
 					<appendTimestampToTitle>true</appendTimestampToTitle>
 					<templateName>NTF Engage Demo</templateName>
