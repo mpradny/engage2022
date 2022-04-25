@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+<h1 style="text-align:center;margin-top:40vh">Hello Engage</h1>
+
+</xp:view>
