@@ -1,6 +1,6 @@
 FROM registry.gitlab.com/pristo/engage2022/domino-docker:V1201_11222021prod
 
-COPY --chown=notes *.ntf /local/notesdata/app.ntf
+COPY --chown=notes:root *.ntf /local/notesdata/app.ntf
 
 COPY ids/ /local/ids/
 
