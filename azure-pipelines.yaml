@@ -5,8 +5,7 @@ resources:
 
 variables:
   imageTag: V1201_390s
-  imageRepository: 'pristo/enagage2022'
-  dockerfilePath: '$(Build.SourcesDirectory)/docker/Dockerfile'
+  imageRepository: 'pristo/enagage2022'  
   dockerRegistryServiceConnection: 'GitLab.com'
   tag: '$(Build.BuildId)'
 
@@ -66,7 +65,7 @@ stages:
         inputs:
           command: buildAndPush
           repository: $(imageRepository)
-          dockerfile: $(dockerfilePath)
+          buildContext: docker
           containerRegistry: $(dockerRegistryServiceConnection)
           tags: |
               $(tag)
