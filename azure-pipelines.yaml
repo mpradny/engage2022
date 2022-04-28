@@ -8,7 +8,7 @@ variables:
   imageRepository: 'pristo/engage2022/engage-app'  
   dockerRegistryServiceConnection: 'GitLab.com'
   tag: '$(Build.BuildId)'
-  azureSubscription: d553d5d1-1176-4ce7-82e0-80bfeb8c1d86
+  azureSubscription: Engage2022
   appName: engage2022app
 
 pool:
