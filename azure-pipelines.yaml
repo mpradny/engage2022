@@ -5,7 +5,7 @@ resources:
 
 variables:
   imageTag: V1201_390s
-  imageRepository: 'pristo/enagage2022'  
+  imageRepository: 'pristo/enagage2022/engage-app'  
   dockerRegistryServiceConnection: 'GitLab.com'
   tag: '$(Build.BuildId)'
 
