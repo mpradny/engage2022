@@ -8,6 +8,8 @@ variables:
   imageRepository: 'pristo/engage2022/engage-app'  
   dockerRegistryServiceConnection: 'GitLab.com'
   tag: '$(Build.BuildId)'
+  azureSubscription: d553d5d1-1176-4ce7-82e0-80bfeb8c1d86
+  appName: engage2022app
 
 pool:
   vmImage: ubuntu-latest
@@ -45,8 +47,8 @@ stages:
       displayName: 'Work dir cleanup with permissions from the container'
       condition: always()
 
-- stage: deploy 
-  displayName: Build Docker and Deploy
+- stage: image 
+  displayName: Build Docker image
   jobs:
   - job: build_docker
     steps:
@@ -64,3 +66,15 @@ stages:
           tags: |
               $(tag)
               latest
+
+- stage: deploy 
+  displayName: Azure deploy
+  jobs:
+  - job: deploy
+    steps:
+    - task: AzureWebAppContainer@1
+      displayName: 'Azure Web App on Container Deploy'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        appName: $(appName)
+        containers: registry.gitlab.com/$(imageRepository):$(tag)
