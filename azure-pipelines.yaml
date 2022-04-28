@@ -4,8 +4,8 @@ resources:
   - repo: self
 
 variables:
-  imageTag: V1201_390s
-  imageRepository: 'pristo/enagage2022/engage-app'  
+  builderImage: registry.gitlab.com/pristo/engage2022/domino-appbuild:V1201_390s
+  imageRepository: 'pristo/engage2022/engage-app'  
   dockerRegistryServiceConnection: 'GitLab.com'
   tag: '$(Build.BuildId)'
 
@@ -22,13 +22,13 @@ stages:
       displayName: 'Adjust permissions'
     - task: Docker@2
       inputs:
-        containerRegistry: 'DockerHub'
+        containerRegistry: $(dockerRegistryServiceConnection)
         command: 'login'
-    - script: docker run --rm -v $(pwd):/local/project -w /local/project mpradny/domino-appbuild:$(imageTag) mvn -o package
+    - script: docker run --rm -v $(pwd):/local/project -w /local/project $(builderImage) mvn -o package
       displayName: 'Run docker build'
     - task: Docker@2
       inputs:
-        containerRegistry: 'DockerHub'
+        containerRegistry: $(dockerRegistryServiceConnection)
         command: 'logout'
     - task: CopyFiles@2
       inputs:
@@ -41,7 +41,7 @@ stages:
         ArtifactName: 'templates'
         publishLocation: 'Container'
 
-    - script: docker run --rm -v $(pwd):/local/project -w /local/project mpradny/domino-appbuild:$(imageTag) rm -rf ./*
+    - script: docker run --rm -v $(pwd):/local/project -w /local/project $(builderImage) rm -rf ./*
       displayName: 'Work dir cleanup with permissions from the container'
       condition: always()
 
