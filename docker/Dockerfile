@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/pristo/engage2022/domino-docker:V1201_11222021prod
+FROM registry.gitlab.com/pristo/engage2022/domino-nginx:V1201_11222021prod
 
 COPY --chown=notes:root *.ntf /local/notesdata/app.ntf
 
