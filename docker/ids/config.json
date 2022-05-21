@@ -27,10 +27,7 @@
 			"IDFilePath": "/local/ids/admin.id"
 		},
 		"notesINI": {
-			"ServerTasks": "HTTP,DESIGN",
-			"HTTPEnableThreadDebug": "1",
-			"HTTPEnablePostDataLogging=1": "1",
-			"HTTPEnableResponseContentLogging=1": "1"
+			"ServerTasks": "HTTP,DESIGN"
 		}		
 	},
 	"appConfiguration":{
