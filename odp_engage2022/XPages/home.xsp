@@ -2,7 +2,7 @@
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core">
 
 <div style="text-align:center;margin-top:40vh">
-	<h1>Hello Engage</h1>
+	<h1>Hello Engage 2022</h1>
 	<h3>version: <xp:text value="${settings.databaseVersion}"></xp:text></h3>
 </div>
 
